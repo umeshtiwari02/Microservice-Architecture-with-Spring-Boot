@@ -1,0 +1,28 @@
+server:
+  port: 8083
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017
+      database: ms_ratingservices
+  config:
+    import: optional:configserver:http://localhost:8085
+
+
+# configuration of oauth2
+  security:
+    oauth2:
+      client:
+        provider:
+          okta:
+            issuerUri: https://dev-57137902.okta.com/oauth2/default
+
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
