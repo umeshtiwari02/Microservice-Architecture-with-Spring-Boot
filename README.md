@@ -110,8 +110,21 @@ The **FeignClientInterceptor** adds the OAuth2 token to the headers of Feign cli
 ### 2. **RestTemplateInterceptor**
 The **RestTemplateInterceptor** is applied to **RestTemplate** requests, adding the OAuth2 token to the request headers. This ensures secure communication between **UserService** and other services using **RestTemplate**.
 
+## Token Generation and Authentication
 
-### The architecture can be represented visually as follows (conceptually):
+To securely authenticate and obtain the OAuth2 token for communication between services, **Okta** is used for user login and token issuance.
+
+1. **Login to Okta**:  
+   Use the credentials of the mentioned user (which should be created in the Okta dashboard).
+
+2. **Token Retrieval**:  
+   Once logged in, Okta will issue an OAuth2 token, which is used for secure communication between services in the system.
+
+3. **OAuth2 Authentication**:  
+   The generated token is included in the **Authorization** header of the HTTP requests, ensuring secure access to the services.
+
+
+## The architecture can be represented visually as follows (conceptually):
 
 
                                  +-------------------+
