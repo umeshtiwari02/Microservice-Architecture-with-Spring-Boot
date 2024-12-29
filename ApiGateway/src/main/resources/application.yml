@@ -1,0 +1,60 @@
+server:
+  port: 8084
+
+spring:
+  cloud:
+    discovery:
+      enabled: true
+    gateway:
+      routes:
+        - id: USER-SERVICE
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/users/**
+
+        - id: HOTEL-SERVICE
+          uri: lb://HOTEL-SERVICE
+          predicates:
+            - Path=/hotels/**
+
+        - id: RATING-SERVICE
+          uri: lb://RATING-SERVICE
+          predicates:
+            - Path=/ratings/**
+
+  config:
+    import: optional:configserver:http://localhost:8085
+
+# configurations instead of okta use
+
+
+  security:
+    oauth2:
+      client:
+        registration:
+          okta:
+            clientId: 0oam68ino0GwFjIBc5d7
+            clientSecret: dWrLZqYF4drb6FVePCzQfYRPw4V38F-DwMbdhD7ra2ZFU2_HsNzto08eaHk1VU7f
+            authorizationGrantType: authorization_code
+            provider: okta
+            scope:
+              - openid
+              - profile
+              - email
+              - offline_access
+            redirectUri: http://localhost:8084/login/oauth2/code/okta
+        provider:
+          okta:
+            issuerUri: https://dev-57137902.okta.com/oauth2/default
+
+
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
+
+
